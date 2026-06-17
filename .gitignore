@@ -3,6 +3,7 @@ data/
 results/
 .vscode/
 checkpoints/
+mmsegmentation/
 
 # Logs and models
 *.log
