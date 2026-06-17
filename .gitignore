@@ -1,0 +1,24 @@
+# Folders
+data/
+results/
+.vscode/
+checkpoints/
+
+# Logs and models
+*.log
+*.log.json
+*.pth
+
+# Python related
+__pycache__/
+.pyc
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda
