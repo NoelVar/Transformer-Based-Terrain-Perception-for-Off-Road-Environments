@@ -2,7 +2,38 @@ from pathlib import Path
 import pandas as pd
 import json
 
-def data_processing():
+# Defining writing function
+def writing_files(split_path, split): 
+    '''
+    - Writing images/annotations to defined files
+    - Writes paths of the images/annotations into the files
+    '''
+    try:
+        with open(f"../../data/processed/rugd/{split_path}.txt", "w") as file:
+            for d in split:
+                img = f"{d['scene']}/{Path(d['image_path']).stem}"
+                file.write(img + "\n")  
+                    
+    except Exception as e: print(e)
+
+# Defining writing function for combination
+def writing_combination(split_path, split):
+    '''
+    - Used to define different styled path then the simple write method which matches the style of RELLIS-3D split
+    - Writing images/annotations to defined files
+    - Writes paths of the images/annotations into the files
+    '''
+    try:
+        with open(f"../../data/processed/rugd/split_for_combination/{split_path}.txt", "w") as file:
+            for d in split:
+                img = f"images/{d['scene']}/{Path(d['image_path']).stem}{Path(d['image_path']).suffix}"
+                ann = f"annotations_with_id/{d['scene']}/{Path(d['image_path']).stem}{Path(d['image_path']).suffix}"
+                combined = f"{img} {ann}"
+                file.write(combined + "\n")    
+                    
+    except Exception as e: print(e)
+
+def data_processing(w_style):
     '''
     - Conducting data preprocessing
     - Saving processed data split into .txt files
@@ -55,23 +86,25 @@ def data_processing():
     print(f"Testing: {len(testing)} - Does it match original distribution: {len(testing) == 1924}")
     print(f"Validation: {len(validation)} - Does it match original distribution: {len(validation) == 733}")
 
-    # Defining writing function
-    def writing_files(split_path, split): 
-        '''
-        - Writing images/annotations to defined files
-        - Writes paths of the images/annotations into the files
-        '''
-        try:
-            with open(f"../../data/processed/rugd/{split_path}.txt", "w") as file:
-                for d in split:
-                    img = f"{d['scene']}/{Path(d['image_path']).stem}"
-                    file.write(img + "\n")  
-                      
-        except Exception as e: print(e)
-
     # Writing data split in files, with appropriate paths
-    writing_files("train", training)
-    writing_files("test", testing)
-    writing_files("val", validation)
+    if w_style == 0:
+        writing_files("train", training)
+        writing_files("test", testing)
+        writing_files("val", validation)
+    else:
+        writing_combination("train", training)
+        writing_combination("test", testing)
+        writing_combination("val", validation)
 
-data_processing()
+print("Are you writing filies for combination? (y/n)")
+u_input = input()
+w_style = 0
+run = True
+
+if u_input == 'y':
+    w_style = 1
+elif u_input != 'n':
+    print("Unknown character entered. Please either enter y for yes or n for no.")
+    run = False
+if run:
+    data_processing(w_style)
