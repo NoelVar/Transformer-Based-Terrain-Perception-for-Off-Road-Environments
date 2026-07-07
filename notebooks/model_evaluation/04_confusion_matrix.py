@@ -6,29 +6,45 @@ import numpy as np
 from tqdm import tqdm
 from collections import defaultdict
 
-txt_root = Path('data/processed/combined/test.txt')
-cm = np.zeros((4, 4), dtype=np.int64)
+def analyse_predictions(choosen_prediction):
+    txt_root = Path('data/processed/combined/test.txt')
+    cm = np.zeros((4, 4), dtype=np.int64)
 
-with open(txt_root, "r") as file:
-    for line in tqdm(file):
-        _, partial_gt_path = line.strip().split()
-        image_name = f"{Path(partial_gt_path).stem}{Path(partial_gt_path).suffix}"
+    with open(txt_root, "r") as file:
+        for line in tqdm(file):
+            _, partial_gt_path = line.strip().split()
+            image_name = f"{Path(partial_gt_path).stem}{Path(partial_gt_path).suffix}"
 
-        gt_path = "data/processed/combined/" + partial_gt_path
-        pred_path = "results/confusion_matrix/predictions.pkl/" + image_name
-        gt = np.array(Image.open(gt_path))
-        pred = np.array(Image.open(pred_path))
+            gt_path = "data/processed/combined/" + partial_gt_path
+            pred_path = choosen_prediction + image_name
+            gt = np.array(Image.open(gt_path))
+            pred = np.array(Image.open(pred_path))
 
-        gt = gt.flatten()
-        pred = pred.flatten()
+            gt = gt.flatten()
+            pred = pred.flatten()
 
-        hist = np.bincount(
-            4 * gt + pred,
-            minlength=4 ** 2
-        ).reshape(4, 4)
+            hist = np.bincount(
+                4 * gt + pred,
+                minlength=4 ** 2
+            ).reshape(4, 4)
 
-        cm += hist
+            cm += hist
+    
+    return cm
 
+# For Baseline
+# path = "results/confusion_matrix/predictions.pkl/"
+
+#  For Baseline (Weighted):
+# path = "results/confusion_matrix/weighted_predictions/"
+
+# For SwinUpernet:
+# path = "results/confusion_matrix/swin-uper-predictions/"
+
+# For SwinUpernet (Weighted):
+path = "results/confusion_matrix/swin-uper-weighted-predictions/"
+
+cm = analyse_predictions(path)
 # GET TP VALUES ACCROSS DIAGONAL -------------------
 tp = np.diag(cm)
 
