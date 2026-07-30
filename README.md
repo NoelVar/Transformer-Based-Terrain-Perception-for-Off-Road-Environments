@@ -6,13 +6,23 @@
 ### King's College London – MSc Advanced Computing
 Noel Varga
 
+<i>I verify that I am the sole author of the programs contained in this archive, except where explicitly stated to the contrary</i>
+
 ~~[<a href=#>Thesis documentation</a>]~~ // To be available
 
 </div>
 
+<br>
+<br>
+<br>
+
 # OVERVIEW
 
 This dissertation was developed for the degree of MSc in Advanced Computing. 
+
+<br>
+<br>
+<br>
 
 # INITIALISATION
 
@@ -26,11 +36,33 @@ cd Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 ## Step 2) Create and activate Conda environment
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment.yml                                                 
 conda activate offroad-dissertation
 ```
 
-## Step 3) Install MMSegmentation framework from the Google Drive link below
+## Step 3) Install PyTorch and verify download
+```bash
+pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu118                      
+```
+```bash
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+```
+
+## Step 4) Install OpenMIM and verify download
+```bash
+pip install -U openmim 
+```
+```bash
+mim --version
+```
+
+## Step 5) Install mmengine, and mmcv 
+```bash
+mim install mmengine 
+mim install mmcv==2.1.0    
+```
+
+## Step 6) Install MMSegmentation framework from the Google Drive link below
 This project depends on a modified version of MMSegmentation containing:
 - custom dataset registrations
 - modified model implementations
@@ -39,7 +71,7 @@ This project depends on a modified version of MMSegmentation containing:
     [<a href="https://drive.google.com/file/d/1yJewPuMaIOBoTLOWoV4D2BAHEEgTOq77/view?usp=sharing">mmsegmentation.zip</a>]
 </div>
 
-## Step 4) Extract the mmsegmentation.zip folder into the root folder of the project
+## Step 7) Extract the mmsegmentation.zip folder into the root folder of the project
 ```bash
 Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 │
@@ -55,24 +87,25 @@ Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 └── test.py
 ```
 
-## Step 5) Install mmsegmentation
+## Step 8) Install mmsegmentation
 Run the command from the root directory
 ```bash
-pip install -v -e ./mmsegmentation
+pip install -e ./mmsegmentation
 ```
 
-## Step 6) Verify installation
+## Step 9) Verify installation
+Run the script in the root project folder to see if the packages are installed successfully (<i>The output should be "Success"</i>).
 ```bash
-python -c "import mmseg; print(mmseg.__version__)"
+python ./test.py
 ```
 
-## Step 7) Download the processed dataset
+## Step 10) Download the processed dataset
 The processed data contains the split files and converted annotations for both datasets. The following link allows to download the processed data from Google Drive:
 <div align="center">
     [<a href="https://drive.google.com/drive/folders/1jI_yRuMDHR2xNYuFdz1HuszxXuR820hu?usp=sharing">processed data</a>]
 </div>
 
-## Step 8) Create the data directory and place processed data
+## Step 11) Create the data directory and place processed data
 ```bash
 Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 │
@@ -90,7 +123,7 @@ Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 └── test.py
 ```
 
-## Step 9) OPTIONAL: Download RUGD and RELLIS datasets
+## Step 12) OPTIONAL: Download RUGD and RELLIS datasets
 To reproduce the data analysis and pre-processing download the original datasets following the links below:
 
 - For RUGD download:
@@ -144,7 +177,7 @@ Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 └── test.py
 ```
 
-## Step 10) OPTIONAL: Download trained models and experiment results
+## Step 13) OPTIONAL: Download trained models and experiment results
 To reproduce the evaluation of the results, download the results folder from the link below:
 <div align="center">
     [<a href="https://drive.google.com/drive/folders/12flKLkAfe6npV8-vIFkpBXeYLyUCnLCZ?usp=sharing">results</a>]
@@ -163,6 +196,22 @@ Transformer-Based-Terrain-Perception-for-Off-Road-Environments
 ...
 └── test.py
 ```
+
+## Step 14) Run notebooks
+To be able to run notebooks, the right Python interpreter needs to be selected.<br>
+First find the "offroad-dissertation" environment path:
+```bash
+conda env list
+
+"EXPECTED OUTPUT">> C:\..\..\anaconda3\envs\offroad-dissertation
+```
+Following this open the editor commands using Ctrl+Shift+P and select <i>"Python: Select Interpreter"</i>. <br>
+From here, select <i>"Enter interpreter path.."</i> > <i>"Find..."</i> and navigate to the path previously revealed from the conda env list command. <br>
+Once in the right directory e.g.: <i>"offroad-dissertation"</i> select the python.exe file. Now the notebook should run.
+
+<br>
+<br>
+<br>
 
 # REPOSITORY STRUCTURE:
 ```bash
@@ -252,15 +301,27 @@ Converts RUGD's annotation files from RGB to ID representation. The script is ra
 }
 ```
 
+Or go to cell number 13 (<i>right after the title "Convert to grayscale (rgb -> id)"</i>), hover over "<i>convert_rgb2id</i>" click "<i>Quick Fix</i>" select "<i>Add './Transformer-Based-Terrain-Perception-for-Off-Road-Environments/src/utils' to extraPaths</i>".
+
+<br>
+<br>
+<br>
+
 # TRAINING
 The models were trained and tested using Google Colab. Please ensure to follow the guidance provided in the notebook to train and test models. Find the training environment here:
 <div align="center">
-    [<a href="https://colab.research.google.com/drive/1vgOkMc9VzoKNOC2YNfY1hH6_3dgL3kmV?usp=sharing">results</a>]
+    [<a href="https://colab.research.google.com/drive/1vgOkMc9VzoKNOC2YNfY1hH6_3dgL3kmV?usp=sharing">Google Colab notebook</a>]
 </div>
+
+<br>
+<br>
+<br>
 
 # REPRODUCIBILITY
 This repository contains the processes used to prepare the data and models for training, and evaluate the results. The training process has been conducted on Google Collaboratory. 
 
 Due to GitHub file size limitations, the modified MMSegmentation framework, processed datasets, and trained model outputs are hosted separately on Google Drive.
+
+Furthermore, some paths in the code may require to be configured to match the local path of the used computer.
 
 ---
