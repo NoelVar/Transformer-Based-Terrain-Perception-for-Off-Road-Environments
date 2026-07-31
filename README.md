@@ -8,9 +8,13 @@ Noel Varga
 
 <i>I verify that I am the sole author of the programs contained in this archive, except where explicitly stated to the contrary</i>
 
-~~[<a href=#>Thesis documentation</a>]~~ // To be available
+~~[<a href=#>Dissertation paper</a>]~~ // To be available
 
+This dissertation is submitted for the degree of MSc in Advanced Computing.
 </div>
+
+---
+---
 
 <br>
 <br>
@@ -18,7 +22,23 @@ Noel Varga
 
 # OVERVIEW
 
-This dissertation was developed for the degree of MSc in Advanced Computing. 
+<div style="text-align: justify">
+<p>
+Autonomous navigation impacts a wide range of applications, yet existing research has primarily focused on the use of Autonomous Ground Vehicles (AGV) in urban environments. Conversely, off-road autonomous navigation remains underexplored due to the unstructured and dynamic nature of off-road environments, dense vegetation, high variation in terrain types, and the scarcity of available and labelled datasets.
+</p>
+<p>
+This dissertation investigates and evaluates the application of transformer-based semantic segmentation for terrain perception in unstructured off-road environments. Following extensive literature review to assess existing approaches, a convolutional DeepLabV3+ baseline and a transformer-based Swin-UperNet model were implemented and evaluated using the MMSegmentation framework and Google Colab environment. To mitigate data scarcity and bias, two datasets RUGD and RELLIS-3D were combined, using a reproducible merging pipeline, while also applying class weighted loss function during training to further reduce the imbalance issue.
+</p>
+<p>
+Evaluation was conducted using standard key metrics (recall, precision, F1-score, mIoU), to ensure fair comparative analysis across the different models. Experimental results indicate that, while the Swin-UperNet model does not drastically outperform
+the baseline DeepLabV3+ model, the transformer-based model demonstrates some advantages in dense vegetation, where it is capable of identifying object boundaries much more precisely. Furthermore, findings highlight that employing dataset optimisation and class weighted loss appears to have a greater impact on performance, compared with changing the model architecture from a CNN- to a transformer-based
+approach.
+</p>
+<p>
+This work contributes a systematic dataset analysis, a reproducible merging pipeline to combine RUGD and RELLIS-3D, based on existing methodology and mapping strategy, a comparative evaluation among a state-of-the-art CNN model and a
+transformer-based architecture, and an assessment of the impact of class weighting. Ultimately the findings emphasise the need for a balanced and comprehensive dataset for off-road autonomous navigation and demonstrate that, while transformer-based architectures offer an advantage in fine-grained segmentation, data optimisation serves as the primary factor in unstructured off-road environments.
+</p>
+</div>
 
 <br>
 <br>
